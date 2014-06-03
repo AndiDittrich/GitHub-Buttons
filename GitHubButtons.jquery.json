@@ -1,11 +1,11 @@
 {
-	"name": "GitHub-Buttons",
+	"name": "GitHubButtons",
 	"title": "The Unofficial GitHub-Buttons on your Website",
 	"description": "Custom GitHub-Buttons on your website using realtime-data.",
 	"keywords": [
 		"github", "buttons", "stars", "stargazers", "forks", "watchers"
 	],
-	"version": "2.2",
+	"version": "2.2.0",
 	"author": {
 		"name": "Andi Dittrich",
 		"email": "andi _DOT_ dittrich (A-T) a3non [dot] O R G",
