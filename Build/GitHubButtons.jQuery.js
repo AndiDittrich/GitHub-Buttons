@@ -4,7 +4,7 @@ name: GitHub-Buttons for MooTools and jQuery
 description: Unofficial GitHub Buttons based on https://github.com/mdo/github-buttons
 
 license: Apache 2.0 License
-version: 2.2
+version: 2.2.2
 build: c5ba1bd3594dbb8fa79aedccc9d131f5/June 3 2014
 
 authors:
