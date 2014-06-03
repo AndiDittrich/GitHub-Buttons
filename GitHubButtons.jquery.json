@@ -1,9 +1,9 @@
 {
 	"name": "GitHubButtons",
-	"title": "The Unofficial GitHub-Buttons on your Website",
+	"title": "The Unofficial GitHub-Buttons",
 	"description": "Custom GitHub-Buttons on your website using realtime-data.",
 	"keywords": [
-		"github", "buttons", "stars", "stargazers", "forks", "watchers"
+		"github", "buttons", "stars", "ajax", "ui", "widget", "stargazers", "forks", "watchers"
 	],
 	"version": "2.2.0",
 	"author": {
