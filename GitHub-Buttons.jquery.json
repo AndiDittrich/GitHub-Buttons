@@ -24,10 +24,10 @@
 		"url": "http://www.apache.org/licenses/LICENSE-2.0"
 		}
 	],
-	"bugs": "https://github.com/jquery/jquery-color/issues",
+	"bugs": "https://github.com/AndiDittrich/GitHub-Buttons/issues",
 	"homepage": "http://github-buttons.andidittrich.de/",
-	"docs": "https://github.com/jquery/jquery-color",
-	"download": "http://code.jquery.com/#color",
+	"docs": "https://github.com/AndiDittrich/GitHub-Buttons",
+	"download": "https://github.com/AndiDittrich/GitHub-Buttons/archive/master.zip",
 	"dependencies": {
 		"jquery": ">=1.9"
 	}
