@@ -1,0 +1,60 @@
+html {
+	position: relative;
+	min-height: 100%;
+}
+
+body {
+	/* Margin bottom by footer height */
+	margin-bottom: 60px;
+	font-family: Open-Sans, Arial, sans-serif;
+}
+
+footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	/* Set the fixed height of the footer here */
+	height: 60px;
+	background-color: #f5f5f5;
+	color: #707070;
+	text-align: center;
+	font-size: 13px;
+	padding: 10px 0px 0px 0px;
+	border-top: solid 1px #e0e0e0;
+}
+
+h1 {
+	font-size: 50px;
+	color: #707070;
+}
+
+header {
+	text-align: center;
+	padding: 40px 0px 0px 0px;
+}
+header .active{
+	text-decoration: underline;
+}
+
+.buttonshowcase {
+	padding: 15px 0px 15px 0px;
+}
+.buttonshowcase h2{
+	text-align: center;
+	color: #707070;
+	margin-top: 40px;
+}
+.buttonshowcase .github-btn {
+	margin: 10px;
+}
+.buttonshowcase p{
+	text-align: center;
+}
+.buttonshowcase pre{
+}
+
+.download-buttons a{
+	display: block;
+	margin: 0px auto 10px auto;
+	width: 250px;
+}

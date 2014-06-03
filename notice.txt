@@ -1,0 +1,25 @@
+/*!
+---
+name: GitHub-Buttons for MooTools and jQuery
+description: Unofficial GitHub Buttons based on https://github.com/mdo/github-buttons
+
+license: Apache 2.0 License
+version: {{VERSION}}
+build: {{BUILD}}/{{DATE}}
+
+authors:
+  - Andi Dittrich (author of MooTools/jQuery based versions)
+  - Mark Otto (author of original github-buttons styles)
+  
+download: https://github.com/AndiDittrich/MooTools.GitHub-Buttons
+website: http://github-buttons.andidittrich.de
+demo: http://github-buttons.andidittrich.de
+  
+requires:
+  - Core/1.4.5
+  - More/Number.Format
+  - More/Request.JSONP
+
+provides: [GitHubButton]
+...
+*/

@@ -1,0 +1,34 @@
+{
+	"name": "GitHub-Buttons",
+	"title": "The Unofficial GitHub-Buttons on your Website",
+	"description": "Custom GitHub-Buttons on your website using realtime-data.",
+	"keywords": [
+		"github", "buttons", "stars", "stargazers", "forks", "watchers"
+	],
+	"version": "2.2",
+	"author": {
+		"name": "Andi Dittrich",
+		"email": "andi _DOT_ dittrich (A-T) a3non [dot] O R G",
+		"url": "http://andidittrich.de"
+	},
+	"maintainers": [
+	{
+		"name": "Andi Dittrich",
+		"email": "andi _DOT_ dittrich (A-T) a3non [dot] O r G",
+		"url": "http://andidittrich.de"
+	}
+	],
+	"licenses": [
+		{
+		"type": "Apache 2.0",
+		"url": "http://www.apache.org/licenses/LICENSE-2.0"
+		}
+	],
+	"bugs": "https://github.com/jquery/jquery-color/issues",
+	"homepage": "http://github-buttons.andidittrich.de/",
+	"docs": "https://github.com/jquery/jquery-color",
+	"download": "http://code.jquery.com/#color",
+	"dependencies": {
+		"jquery": ">=1.9"
+	}
+}

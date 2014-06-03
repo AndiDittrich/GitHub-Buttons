@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+	Simple ANT-based buildscript for GitHub-Buttons
+	
+	@author		Andi Dittrich <http://andidittrich.de/>
+	@version	1.3
+	@license	MIT Style X11
+	
+!-->
+<project name="GitHubButtons" default="build" basedir=".">
+		
+	<!-- Target Properties ! -->
+	<property name="yui.jar" value="Util/yuicompressor-2.4.8.jar" />
+	<property name="build.dir" value="Build/" />
+	<property name="www.dir" value="PublicHtml/" />
+	<property name="build.var.version" value="2.2" />
+
+	<!-- ANT.contrib package -->
+	<path id="ant.contrib.classpath" location="Util/ant-contrib-1.0b3.jar"></path>
+	<taskdef resource="net/sf/antcontrib/antlib.xml">
+	    <classpath refid="ant.contrib.classpath" />
+	</taskdef>
+
+	<!-- Generate Build -->
+	<target name="build">
+		<!-- Cleanup Build Dir -->
+		<delete dir="${build.dir}" />		
+		
+		<!-- ****************************** JS BUILD MOOTOOLS **************************** -->
+		<ant antfile="Util/concat-compress.xml">
+			<property name="compress.description" value="GitHub-Buttons" />
+			<property name="compress.type" value="js" />
+			<property name="compress.input" value="notice.txt Source/GitHubButtons.MooTools.js" />
+			<property name="compress.output" value="GitHubButtons.MooTools.yui.js" />
+			<property name="uncompress.output" value="GitHubButtons.MooTools.js" />
+		</ant>
+		
+		<!-- ****************************** JS BUILD JQUERY **************************** -->
+		<ant antfile="Util/concat-compress.xml">
+			<property name="compress.description" value="GitHub-Buttons" />
+			<property name="compress.type" value="js" />
+			<property name="compress.input" value="notice.txt Source/GitHubButtons.jQuery.js" />
+			<property name="compress.output" value="GitHubButtons.jQuery.yui.js" />
+			<property name="uncompress.output" value="GitHubButtons.jQuery.js" />
+		</ant>
+
+		<!-- ****************************** CSS BUILD *********************************** -->
+		<ant antfile="Util/concat-compress.xml">
+			<property name="compress.description" value="GitHub-Buttons" />
+			<property name="compress.type" value="css" />
+			<property name="compress.input" value="notice.txt Source/GitHubButtons.css" />
+			<property name="compress.output" value="GitHubButtons.yui.css" />
+			<property name="uncompress.output" value="GitHubButtons.css" />
+		</ant>
+		
+		<!-- Change Package Versions !-->
+		<replaceregexp byline="true" flags="s">
+			<regexp pattern="current: v(.*)" />
+			<substitution expression="current: v${build.var.version}"/>
+			<fileset file="package.yml" />
+		</replaceregexp>
+		<replaceregexp byline="true" flags="s">
+			<regexp pattern="&quot;version&quot;: &quot;(.*)&quot;," />
+			<substitution expression="&quot;version&quot;: &quot;${build.var.version}&quot;,"/>
+			<fileset file="GitHub-Buttons.jquery.json" />
+		</replaceregexp>
+	</target>
+		
+	<!-- Generate Demo Website !-->
+	<target name="www" depends="build">
+		<!-- Cleanup www Dir -->
+		<delete dir="${www.dir}" />
+		<mkdir dir="${www.dir}"/>	
+		
+		<!-- Copy resources !-->
+		<copy todir="${www.dir}Resources">
+			<fileset dir="Resources"/>
+		</copy>
+		
+		<!-- Copy Page !-->
+		<copy file="GitHub-Buttons-MooTools.html" tofile="${www.dir}index.html" />
+		<copy file="GitHub-Buttons-MooTools.html" tofile="${www.dir}GitHub-Buttons-MooTools.html" />
+		<copy file="GitHub-Buttons-jQuery.html" tofile="${www.dir}GitHub-Buttons-jQuery.html" />
+		
+		<!-- Copy License and fix linebreaks !-->
+		<copy file="LICENSE.md" tofile="${www.dir}LICENSE.txt" />
+		<fixcrlf eol="crlf" file="${www.dir}LICENSE.txt" />
+
+		<!-- Copy JS/CSS Files !-->
+		<copy todir="${www.dir}Build">
+			<fileset dir="Build/"/>
+		</copy>
+	</target>
+	
+</project>

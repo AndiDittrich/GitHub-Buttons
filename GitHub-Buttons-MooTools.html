@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Unofficial GitHub-Buttons - for MooTools and jQuery</title>
+
+<!-- Bootstrap just 4 styling -->
+<link rel="stylesheet" type="text/css" href="Resources/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="Resources/bootstrap-theme.min.css" />
+<link rel="stylesheet" type="text/css" href="Resources/Template.css" />
+
+<!-- Include GitHub-Buttons Styles -->
+<link rel="stylesheet" type="text/css" href="Build/GitHubButtons.yui.css" />
+
+<!-- Include MooTools Framework -->
+<script type="text/javascript" src="Resources/mootools-core-1.5.0-full-nocompat-yc.js"></script>
+<script type="text/javascript" src="Resources/mootools-more-1.5.0.yui.js"></script>
+
+<!-- Include GitHub-Buttons -->
+<script type="text/javascript" src="Build/GitHubButtons.MooTools.yui.js"></script>
+
+<script type="text/javascript">
+	window.addEvent('domready', function(){
+		// create a new button
+		var btn = new GitHubButton({
+			owner : 'AndiDittrich',
+			repo : 'EnlighterJS',
+			large : true,
+			type : 'star',
+			text : 'Starring:'
+		});
+
+		// inject the button into the container (magic toElement() method is called by MooTools)
+		document.id('container1').grab(btn);
+		
+		// STAR Demo Button
+		document.id('container1').GitHubButton({
+			owner : 'AndiDittrich',
+			repo : 'EnlighterJS',
+			large : false,
+			type : 'star'
+		});
+
+		// FORK Demo Button
+		document.id('container2').grab(new GitHubButton({
+			owner : 'AndiDittrich',
+			repo : 'EnlighterJS',
+			large : true,
+			type : 'fork'
+		}));
+		document.id('container2').grab(new GitHubButton({
+			owner : 'AndiDittrich',
+			repo : 'EnlighterJS',
+			large : false,
+			type : 'fork'
+		}));
+
+		// WATCH Demo Button
+		document.id('container3').grab(new GitHubButton({
+			owner : 'AndiDittrich',
+			repo : 'EnlighterJS',
+			large : true,
+			type : 'watch'
+		}));
+		document.id('container3').grab(new GitHubButton({
+			owner : 'AndiDittrich',
+			repo : 'EnlighterJS',
+			large : false,
+			type : 'watch'
+		}));
+
+		// FOLLOW Demo Button
+		document.id('container4').grab(new GitHubButton({
+			owner : 'AndiDittrich',
+			repo : 'EnlighterJS',
+			large : true,
+			type : 'follow'
+		}));
+		document.id('container4').grab(new GitHubButton({
+			owner : 'AndiDittrich',
+			repo : 'EnlighterJS',
+			large : false,
+			type : 'follow'
+		}));
+	});
+</script>
+</head>
+<body>
+
+
+	<header>
+		<div class="container">
+			<h1>			
+				The Unofficial GitHub-Buttons<br /> <small><a class="active" href="GitHub-Buttons-MooTools.html">for MooTools</a> / <a href="GitHub-Buttons-jQuery.html">for jQuery</a></small>
+			</h1>
+			<p class="lead">Show your Love to GitHub with the power of MooTools or jQuery<br />including buttons for stargazers, watchers, forks and followers</p>
+		</div>
+	</header>
+
+	<div class="container buttonshowcase">
+	
+		<hr />
+	
+		<div class="row">
+			<div class="col-lg-3 col-md-6" id="container1"></div>
+			<div class="col-lg-3 col-md-6" id="container2"></div>
+			<div class="col-lg-3 col-md-6" id="container3"></div>
+			<div class="col-lg-3 col-md-6" id="container4"></div>
+		</div>
+		
+		<hr />
+		<div class="row">
+			<div class="col-lg-6 col-md-12">
+		<h2>MooTools</h2>
+<p>Requires: Core/1.4.5, More/Number.Format, More/Request.JSONP</p>		
+<pre>
+window.addEvent('domready', function(){
+	// create a new stargazer button
+	document.id('container1').grab(new GitHubButton({
+		owner : 'AndiDittrich',
+		repo : 'EnlighterJS',
+		large : true,
+		type : 'star',
+		text : 'Starring:'
+	}));
+});</pre>
+			</div>
+
+			<div class="col-lg-6 col-md-12">
+			<h2>jQuery</h2>
+<p>Requires: jQuery/1.9</p>				
+<pre>
+jQuery(function(jq){
+	// create a new stargazer button
+	jq('#container1').GitHubButton({
+		owner : 'AndiDittrich',
+		repo : 'EnlighterJS',
+		large : true,
+		type : 'star',
+		text : 'Starring:'
+	});
+});
+</pre>
+			</div>
+		</div>
+	
+		<hr />
+		
+		<p>Sources: <a href="https://github.com/AndiDittrich/GitHub-Buttons/blob/master/Build/GitHubButtons.MooTools.js">Native MooTools Code</a> - <a href="https://github.com/AndiDittrich/GitHub-Buttons/blob/master/Build/GitHubButtons.css">Stylesheet</a> - <a href="https://github.com/AndiDittrich/GitHub-Buttons/blob/master/Build/GitHubButtons.jQuery.js">Native jQuery Code</a></p>
+		
+		<hr />
+		<div class="download-buttons">
+			<a href="https://github.com/AndiDittrich/GitHub-Buttons" class="btn btn-primary btn-lg">Download from GitHub</a>
+		</div>
+	</div>
+
+	<footer>
+		<div class="container">
+			<p>
+				<a href="https://github.com/AndiDittrich/GitHub-Buttons">MooTools/jQuery Plugins</a> created by <a href="http://andidittrich.de">Andi Dittrich</a> | Based on <a href="http://ghbtns.com/">GitHub Buttons</a> from <a href="http://twitter.com/mdo">@mdo</a><br />
+				It's released under the Terms of <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0 License</a> | Demo created with <a href="http://getbootstrap.com">Bootstrap</a>
+			</p>		
+		</div>
+	</footer>
+</body>
+</html>
