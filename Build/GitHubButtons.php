@@ -153,18 +153,21 @@ class GitHubButtons{
 		);
 		
 		// send request
-		$data = file_get_contents('https://api.github.com/'.$url, false, stream_context_create($opts));
+		$data = false;
+		try{
+			$data = @file_get_contents('https://api.github.com/'.$url, false, stream_context_create($opts));
+		}catch(Exception $error){}
 		
 		// success ?
 		if ($data===false){
 			return array();
+		}else{
+			// cache data
+			file_put_contents($cachefilename, $data);
+			
+			// return resposne data
+			return json_decode($data, true);
 		}
-		
-		// cache data
-		file_put_contents($cachefilename, $data);
-		
-		// return resposne data
-		return json_decode($data, true);
 	}
 	
 	// singleton instance
