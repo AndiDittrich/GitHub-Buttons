@@ -2,15 +2,15 @@
 					
 /*!
 ---
-name: GitHub-Buttons for MooTools and jQuery
+name: GitHub-Buttons for MooTools, jQuery and PHP
 description: Unofficial GitHub Buttons based on https://github.com/mdo/github-buttons
 
 license: Apache 2.0 License
-version: 2.2.2
-build: c5ba1bd3594dbb8fa79aedccc9d131f5/June 3 2014
+version: 2.3
+build: 17cd815dcbc98ed06f9d474f578286b4/September 3 2014
 
 authors:
-  - Andi Dittrich (author of MooTools/jQuery based versions)
+  - Andi Dittrich (author of MooTools/jQuery/PHP based versions)
   - Mark Otto (author of original github-buttons styles)
   
 download: https://github.com/AndiDittrich/MooTools.GitHub-Buttons

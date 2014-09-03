@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Unofficial GitHub-Buttons - for MooTools, jQuery and PHP</title>
+
+<!-- Bootstrap just 4 styling -->
+<link rel="stylesheet" type="text/css" href="Resources/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="Resources/bootstrap-theme.min.css" />
+<link rel="stylesheet" type="text/css" href="Resources/Template.css" />
+
+<!-- Include GitHub-Buttons Styles -->
+<link rel="stylesheet" type="text/css" href="Build/GitHubButtons.yui.css" />
+
+</head>
+<body>
+	<header>
+		<div class="container">
+			<h1>			
+				The Unofficial GitHub-Buttons<br />
+				<small>for <a href="GitHub-Buttons-MooTools.html">MooTools</a> / <a href="GitHub-Buttons-jQuery.html">jQuery</a> / <a class="active" href="GitHub-Buttons-PHP.phtml">PHP</a></small>
+			</h1>
+			<p class="lead">Show your Love to GitHub with the power of MooTools, jQuery or PHP<br />including buttons for stargazers, watchers, forks and followers</p>
+		</div>
+	</header>
+
+	<div class="container buttonshowcase">
+		<hr />
+		<p class="lead text-center subtitle">Providing a platform coherent API</p>
+		<hr />
+		<?php 
+			// include GitHubButtons
+			require('Build/GitHubButtons.php');
+		
+			// create new instance of GitHubButtons using current directory as cache
+			$ghb = new GitHubButtons(__DIR__);		
+		?>
+		
+	
+		<div class="row">
+			<div class="col-lg-3 col-md-6" id="container1">
+			<?php
+				// Stargazers
+				echo $ghb->button(array(
+					'owner' => 'AndiDittrich',
+					'repo' => 'EnlighterJS',
+					'large' => true,
+					'type' => 'star',
+					'text' => 'Starring:'
+				));
+				// Stargazers small
+				echo $ghb->button(array(
+						'owner' => 'AndiDittrich',
+						'repo' => 'EnlighterJS',
+						'large' => false,
+						'type' => 'star'
+				));
+			?>
+			</div>
+			<div class="col-lg-3 col-md-6" id="container2">
+			<?php
+				// Fork
+				echo $ghb->button(array(
+					'owner' => 'AndiDittrich',
+					'repo' => 'EnlighterJS',
+					'large' => true,
+					'type' => 'fork' 
+				));
+				// Fork small
+				echo $ghb->button(array(
+						'owner' => 'AndiDittrich',
+						'repo' => 'EnlighterJS',
+						'large' => false,
+						'type' => 'fork'
+				));
+			?>
+			</div>
+			<div class="col-lg-3 col-md-6" id="container3">
+			<?php
+				// Watch
+				echo $ghb->button(array(
+					'owner' => 'AndiDittrich',
+					'repo' => 'EnlighterJS',
+					'large' => true,
+					'type' => 'watch'
+				));
+				// Watch small
+				echo $ghb->button(array(
+						'owner' => 'AndiDittrich',
+						'repo' => 'EnlighterJS',
+						'large' => false,
+						'type' => 'watch'
+				));
+			?>
+			</div>
+			<div class="col-lg-3 col-md-6" id="container4">
+			<?php
+				// Follow
+				echo $ghb->button(array(
+					'owner' => 'AndiDittrich',
+					'repo' => 'EnlighterJS',
+					'large' => true,
+					'type' => 'follow'
+				));
+				// Follow small
+				echo $ghb->button(array(
+						'owner' => 'AndiDittrich',
+						'repo' => 'EnlighterJS',
+						'large' => false,
+						'type' => 'follow'
+				));
+			?>
+			</div>
+		</div>
+		
+		<hr />
+		
+
+			
+		<div class="row">
+			<div class="col-lg-6 col-md-12">
+		<h2>PHP</h2>
+<p>Requires: PHP 5.3</p>		
+<pre>
+// create new instance of GitHubButtons using current directory as cache
+$ghb = new GitHubButtons(__DIR__);
+
+// create a new stargazer button
+echo $ghb->button(array(
+	'owner' => 'AndiDittrich',
+	'repo' => 'EnlighterJS',
+	'large' => true,
+	'type' => 'star',
+	'text' => 'Starring:'
+));</pre>
+			</div>
+			<div class="col-lg-6 col-md-12">
+		<h2>PHP-Singleton</h2>
+<p>Requires: PHP 5.3</p>		
+<pre>
+// initialize GitHubButtons singleton using current directory as cache
+GitHubButtons::getInstance(__DIR__);
+
+// create a new stargazer button
+GitHubButtons::getInstance()->button(array(
+	'owner' => 'AndiDittrich',
+	'repo' => 'EnlighterJS',
+	'large' => true,
+	'type' => 'star',
+	'text' => 'Starring:'
+));</pre>
+			</div>			
+		</div>
+	
+		<hr />
+		
+		<p>Sources: <a href="https://github.com/AndiDittrich/GitHub-Buttons/blob/master/Build/GitHubButtons.MooTools.js">Native MooTools Code</a> - <a href="https://github.com/AndiDittrich/GitHub-Buttons/blob/master/Build/GitHubButtons.jQuery.js">Native jQuery Code</a> - <a href="https://github.com/AndiDittrich/GitHub-Buttons/blob/master/Build/GitHubButtons.php">Native PHP Code</a> - <a href="https://github.com/AndiDittrich/GitHub-Buttons/blob/master/Build/GitHubButtons.css">Stylesheet</a></p>
+		<p>All required files are located into the <code>Build/</code> directory including YUI compressed versions!</p>
+		<hr />
+		<div class="download-buttons">
+			<a href="https://github.com/AndiDittrich/GitHub-Buttons" class="btn btn-primary btn-lg">Download on GitHub</a> 
+		</div>
+	</div>
+
+	<footer>
+		<div class="container">
+			<p>
+				<a href="https://github.com/AndiDittrich/GitHub-Buttons">MooTools/jQuery/PHP Plugins</a> created by <a href="http://andidittrich.de">Andi Dittrich</a> | Based on <a href="http://ghbtns.com/">GitHub Buttons</a> from <a href="http://twitter.com/mdo">@mdo</a><br />
+				It's released under the Terms of <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0 License</a> | Demo created with <a href="http://getbootstrap.com">Bootstrap</a>
+			</p>		
+		</div>
+	</footer>
+</body>
+</html>

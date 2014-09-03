@@ -1,3 +1,8 @@
+### 2.3 ###
+* Added PHP based version including server-side caching of GitHub API Requests
+* Added PHP based example
+* Some improvements of the [demo page](http://github-buttons.andidittrich.de)
+
 ### 2.2 ###
 * Added option `count` to enable/disable the counter value or set it to a static value
 * Removed old tags of the original "github-buttons"

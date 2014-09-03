@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The Unofficial GitHub-Buttons - for MooTools and jQuery</title>
+<title>The Unofficial GitHub-Buttons - for MooTools, jQuery and PHP</title>
 
 <!-- Bootstrap just 4 styling -->
 <link rel="stylesheet" type="text/css" href="Resources/bootstrap.min.css" />
@@ -93,14 +93,16 @@
 	<header>
 		<div class="container">
 			<h1>			
-				The Unofficial GitHub-Buttons<br /> <small><a class="active" href="GitHub-Buttons-MooTools.html">for MooTools</a> / <a href="GitHub-Buttons-jQuery.html">for jQuery</a></small>
+				The Unofficial GitHub-Buttons<br />
+				<small>for <a class="active" href="GitHub-Buttons-MooTools.html">MooTools</a> / <a href="GitHub-Buttons-jQuery.html">jQuery</a> / <a href="GitHub-Buttons-PHP.phtml">PHP</a></small>
 			</h1>
-			<p class="lead">Show your Love to GitHub with the power of MooTools or jQuery<br />including buttons for stargazers, watchers, forks and followers</p>
+			<p class="lead">Show your Love to GitHub with the power of MooTools, jQuery or PHP<br />including buttons for stargazers, watchers, forks and followers</p>
 		</div>
 	</header>
 
 	<div class="container buttonshowcase">
-	
+		<hr />
+		<p class="lead text-center subtitle">Providing a platform coherent API</p>
 		<hr />
 	
 		<div class="row">
@@ -127,39 +129,38 @@ window.addEvent('domready', function(){
 	}));
 });</pre>
 			</div>
-
+			
 			<div class="col-lg-6 col-md-12">
-			<h2>jQuery</h2>
-<p>Requires: jQuery/1.9</p>				
+		<h2>MooTools Element-Style</h2>
+<p>Requires: Core/1.4.5, More/Number.Format, More/Request.JSONP</p>		
 <pre>
-jQuery(function(jq){
+window.addEvent('domready', function(){
 	// create a new stargazer button
-	jq('#container1').GitHubButton({
+	document.id('container1').GitHubButton({
 		owner : 'AndiDittrich',
 		repo : 'EnlighterJS',
 		large : true,
 		type : 'star',
 		text : 'Starring:'
 	});
-});
-</pre>
+});</pre>
 			</div>
 		</div>
 	
 		<hr />
 		
-		<p>Sources: <a href="https://github.com/AndiDittrich/GitHub-Buttons/blob/master/Build/GitHubButtons.MooTools.js">Native MooTools Code</a> - <a href="https://github.com/AndiDittrich/GitHub-Buttons/blob/master/Build/GitHubButtons.css">Stylesheet</a> - <a href="https://github.com/AndiDittrich/GitHub-Buttons/blob/master/Build/GitHubButtons.jQuery.js">Native jQuery Code</a></p>
+		<p>Sources: <a href="https://github.com/AndiDittrich/GitHub-Buttons/blob/master/Build/GitHubButtons.MooTools.js">Native MooTools Code</a> - <a href="https://github.com/AndiDittrich/GitHub-Buttons/blob/master/Build/GitHubButtons.jQuery.js">Native jQuery Code</a> - <a href="https://github.com/AndiDittrich/GitHub-Buttons/blob/master/Build/GitHubButtons.php">Native PHP Code</a> - <a href="https://github.com/AndiDittrich/GitHub-Buttons/blob/master/Build/GitHubButtons.css">Stylesheet</a></p>
 		<p>All required files are located into the <code>Build/</code> directory including YUI compressed versions!</p>
 		<hr />
 		<div class="download-buttons">
-			<a href="https://github.com/AndiDittrich/GitHub-Buttons" class="btn btn-primary btn-lg">Download from GitHub</a>
+			<a href="https://github.com/AndiDittrich/GitHub-Buttons" class="btn btn-primary btn-lg">Download on GitHub</a> 
 		</div>
 	</div>
 
 	<footer>
 		<div class="container">
 			<p>
-				<a href="https://github.com/AndiDittrich/GitHub-Buttons">MooTools/jQuery Plugins</a> created by <a href="http://andidittrich.de">Andi Dittrich</a> | Based on <a href="http://ghbtns.com/">GitHub Buttons</a> from <a href="http://twitter.com/mdo">@mdo</a><br />
+				<a href="https://github.com/AndiDittrich/GitHub-Buttons">MooTools/jQuery/PHP Plugins</a> created by <a href="http://andidittrich.de">Andi Dittrich</a> | Based on <a href="http://ghbtns.com/">GitHub Buttons</a> from <a href="http://twitter.com/mdo">@mdo</a><br />
 				It's released under the Terms of <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0 License</a> | Demo created with <a href="http://getbootstrap.com">Bootstrap</a>
 			</p>		
 		</div>
