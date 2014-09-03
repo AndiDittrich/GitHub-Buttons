@@ -1,8 +1,8 @@
-GitHub-Buttons for MooTools and jQuery
-======================================
+GitHub-Buttons for MooTools, jQuery and PHP
+===========================================
 
 GitHubButtons is a fork of the famous [github-buttons](http://ghbtns.com/) plugin using the original styles with a complete new javascript part based on MooTools/jQuery without the need of iframes.
-It's targeted on MooTools/jQuery-Users which are already using various stuff on their pages - all other users should use the original iframe version to save bandwidth!
+It's targeted on MooTools/jQuery/PHP-Users which are already using various stuff on their pages - all other users should use the original iframe version to save bandwidth!
 [Demo Page](http://github-buttons.andidittrich.de)
 
 ![Screenshot](http://github-buttons.andidittrich.de/screenshot.jpg)
@@ -20,7 +20,7 @@ Features
 * Ultra lightweight (2kB JS + 6kB CSS)
 * Custom button text supported
 * You can set the "count" manually - e.g. using server-side-caching to avoid the GitHub API rate limitation
-* jQuery as well as MooTools are supported by native code - use the framework/library of your choice
+* jQuery as well as MooTools and PHP are supported by native code - use the framework/library of your choice
 
 How to use
 ----------
@@ -92,7 +92,31 @@ Just add the JS+CSS files to your page and use the following code to inject a bu
 		});
 	));
 	
+### PHP Setup
+
+	#PHP
+	<?php 
+	// include GitHubButtons
+	require('Build/GitHubButtons.php');
 	
+	// create new instance of GitHubButtons using current directory as cache
+	$ghb = new GitHubButtons(__DIR__);		
+	?>
+
+### PHP Usage
+
+	#PHP
+	<?php
+	// Stargazers
+	echo $ghb->button(array(
+		'owner' => 'AndiDittrich',
+		'repo' => 'EnlighterJS',
+		'large' => true,
+		'type' => 'star',
+		'text' => 'Starring:'
+	));
+	?>
+
 Syntax
 ------
 
@@ -115,7 +139,27 @@ The jQuery part only supports the commonly used element-style-syntax
 **Element Style**
 
 	#JS
-	jQuery(...).GitHubButton(options);		
+	jQuery(...).GitHubButton(options);
+	
+### PHP
+
+**Instance Style**
+
+	#PHP
+	// create new instance of GitHubButtons using current directory as cache
+	$ghb = new GitHubButtons(__DIR__);	
+	
+	// create a new button
+	echo $ghb->button(options);	
+
+**Singleton Style**
+
+	#PHP
+	// initialize GitHubButtons singleton using current directory as cache
+	GitHubButtons::getInstance(__DIR__);
+	
+	// create a new button
+	GitHubButtons::getInstance()->button(options)
 
 Options
 -------
@@ -130,9 +174,9 @@ The following options can be passed to the constructor/function - used by the Mo
 
 Authors
 -------
-* [Andi Dittrich](http://andidittrich.de) (author of MooTools/jQuery based Plugin)
+* [Andi Dittrich](http://andidittrich.de) (author of MooTools/jQuery/PHP based Plugin)
 * [Mark Otto](http://twitter.com/mdo) (author of original github-buttons)
 
 License
 -------
-GitHub-Buttons for MooTools and jQuery is released under the [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0)
+GitHub-Buttons for MooTools, jQuery and PHP is released under the [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0)
