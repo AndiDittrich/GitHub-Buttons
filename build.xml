@@ -14,7 +14,7 @@
 	<property name="yui.jar" value="Util/yuicompressor-2.4.8.jar" />
 	<property name="build.dir" value="Build/" />
 	<property name="www.dir" value="PublicHtml/" />
-	<property name="build.var.version" value="2.3" />
+	<property name="build.var.version" value="2.4.0" />
 
 	<!-- ANT.contrib package -->
 	<path id="ant.contrib.classpath" location="Util/ant-contrib-1.0b3.jar"></path>
@@ -74,7 +74,8 @@
 	<target name="www" depends="build">
 		<!-- Cleanup www Dir -->
 		<delete dir="${www.dir}" />
-		<mkdir dir="${www.dir}"/>	
+		<mkdir dir="${www.dir}"/>
+		<mkdir dir="${www.dir}/.cache"/>	
 		
 		<!-- Copy resources !-->
 		<copy todir="${www.dir}Resources">
@@ -86,6 +87,9 @@
 		<copy file="GitHub-Buttons-MooTools.html" tofile="${www.dir}GitHub-Buttons-MooTools.html" />
 		<copy file="GitHub-Buttons-jQuery.html" tofile="${www.dir}GitHub-Buttons-jQuery.html" />
 		<copy file="GitHub-Buttons-PHP.phtml" tofile="${www.dir}GitHub-Buttons-PHP.phtml" />
+		
+		<!-- Copy Screenshots !-->
+		<copy file="screenshot.jpg" tofile="screenshot.jpg" />
 		
 		<!-- Copy License and fix linebreaks !-->
 		<copy file="LICENSE.md" tofile="${www.dir}LICENSE.txt" />

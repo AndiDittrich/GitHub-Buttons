@@ -5,13 +5,12 @@
  * @see https://developer.github.com/v3/
  * @author Andi Dittrich <http://andidittrich.de>
  * @license Dual-Licensed under "The MIT License (X11)" and "Apache 2.0 License"
- * @version 1.1
+ * @version 1.2
  *
  */
 class GitHubButtons{
 	
-	// global cachetime - 30min
-	private $_cachetime = 1800;
+	// global cache dir
 	private $_cacheDir;
 	
 	function __construct($cacheDir = '.'){
@@ -42,7 +41,16 @@ class GitHubButtons{
 				'text' => null,
 				
 				// enabled/disable counter - manual set the value
-				'count' => true
+				'count' => true,
+				
+				// enable caching by default
+				'cache' => true,
+				
+				// cache lifetime in seconds (2h default)
+				'cacheLifetime' => 7200,
+				
+				// text/count if GitHub API is unavailable
+				'errorText' => 'NA'
 		);
 		return array_merge($defaults, $options);
 	}
@@ -102,13 +110,13 @@ class GitHubButtons{
 			$count = $options['count'];
 		}else{
 			// fetch count
-			$dataset = $this->doApiRequest($apiUrl);
+			$dataset = $this->doApiRequest($apiUrl, $options['cache'], $options['cacheLifetime']);
 			
 			// valid ?
-			if (is_array($dataset)){
-				$count = count($dataset);
+			if (is_numeric($dataset)){
+				$count = $dataset;
 			}else{
-				$count = 0;
+				$count = $options['errorText'];
 			}
 		}
 		
@@ -130,13 +138,13 @@ class GitHubButtons{
 	 * @param unknown $url
 	 * @return string
 	 */
-	private function doApiRequest($url){
+	private function doApiRequest($url, $cacheEnabled, $cacheLifetime){
 		// cache url
 		$cachefilename = $this->_cacheDir . '/github.'.sha1($url).'.cache.json';
 		
 		// 1h cachetime
-		if (file_exists($cachefilename) && filemtime($cachefilename) > (time()-$this->_cachetime)){
-			return json_decode(file_get_contents($cachefilename), true);
+		if ($cacheEnabled && file_exists($cachefilename) && filemtime($cachefilename) > (time()-$cacheLifetime)){
+			return file_get_contents($cachefilename);
 		}
 		
 		$opts = array('http' =>
@@ -160,13 +168,18 @@ class GitHubButtons{
 		
 		// success ?
 		if ($data===false){
-			return array();
+			return false;
 		}else{
-			// cache data
-			file_put_contents($cachefilename, $data);
+			// decode data
+			$jdata = json_decode($data);
+			
+			if ($cacheEnabled){
+				// cache data
+				file_put_contents($cachefilename, count($jdata));
+			}
 			
 			// return resposne data
-			return json_decode($data, true);
+			return count($jdata);
 		}
 	}
 	

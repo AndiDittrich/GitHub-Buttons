@@ -4,8 +4,8 @@ name: GitHub-Buttons for MooTools, jQuery and PHP
 description: Unofficial GitHub Buttons based on https://github.com/mdo/github-buttons
 
 license: Apache 2.0 License
-version: 2.3
-build: aa5f1d70acb0cd274fdb52374a3d9611/September 3 2014
+version: 2.4.0
+build: d8340e9b798a7da392ca94452774798c/February 2 2015
 
 authors:
   - Andi Dittrich (author of MooTools/jQuery/PHP based versions)
@@ -63,7 +63,16 @@ var GitHubButton = new Class({
 		text: null,
 		
 		// enabled/disable counter - manual set the value
-		count: true
+		count: true,
+		
+		// enable/disable caching
+		cache: true,
+		
+		// cache lifetime in seconds (2h default)
+		cacheLifetime: 7200,
+		
+		// error text/count
+		errorText: 'NA'
 	},	
 	
 	initialize: function(options){
@@ -147,6 +156,20 @@ var GitHubButton = new Class({
 		if (typeof this.options.count == 'boolean'){
 			// show count and request the data via JSONP ?
 			if (this.options.count){
+				// cache instance name
+				var cacheName = 'GHB_' + this.options.type + '_' + this.options.owner + '_' + this.options.repo;
+				
+				// cache version available ?
+				if (this.options.cache === true){
+					var cdata = this.retrieveItem(cacheName, this.options.cacheLifetime);
+					
+					if (cdata){
+						// update text
+						count.set('text', cdata.format({group: '.'}));
+						return;
+					}
+				}
+				
 				// request data
 				new Request.JSONP({
 					// the rest service url
@@ -160,7 +183,17 @@ var GitHubButton = new Class({
 				    onComplete: function(response){
 				    	// valid reponse ? request limit not exceeeded ?
 				    	if (response.data.length){
+				    		// update text
 							count.set('text', response.data.length.format({group: '.'}));
+							
+							// update cache
+							if (this.options.cache === true){
+								this.storeItem(cacheName, response.data.length);
+							}
+							
+						// set error text	
+				    	}else{
+				    		count.set('text', this.options.errorText);
 				    	}
 				    }.bind(this)
 				}).send();
@@ -175,9 +208,51 @@ var GitHubButton = new Class({
 		}		
 	},
 	
+	// magic method to use class instance as element
 	toElement: function(){
 		return this.buttonContainer;
-	}
+	},
+	
+	// use local storage as cache
+	storeItem: function(name, data){
+		// generate storage data
+		var d = JSON.encode({
+			time: (new Date().getTime()),
+			payload: data
+		});
+		
+		// try to use html5 features
+		if (typeof(Storage) !== "undefined"){
+			localStorage.setItem(name, d);
+		}
+	},
+	
+	// use local storage as cache
+	retrieveItem: function(name, cacheLifetime){
+		// try to use html5 features
+		if (typeof(Storage) !== "undefined"){
+			// get item
+			var ls = localStorage.getItem(name);
+			
+			// available ?
+			if (!ls){
+				return null;
+			}
+			
+			// decode json serialized data
+			ls = JSON.decode(ls);
+			
+			// lifetime expired ?
+			if (!ls.time || (ls.time + (cacheLifetime*1000)) < (new Date().getTime())){
+				return null;
+			}
+			
+			// valid payload ?
+			return (ls.payload ? ls.payload : null);
+		}else{
+			return null;
+		}
+	},
 });
 
 // Native Element extension - jQuery like usage

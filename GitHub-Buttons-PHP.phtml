@@ -35,7 +35,7 @@
 			require('Build/GitHubButtons.php');
 		
 			// create new instance of GitHubButtons using current directory as cache
-			$ghb = new GitHubButtons(__DIR__);		
+			$ghb = new GitHubButtons(__DIR__.'/.cache');		
 		?>
 		
 	
@@ -133,7 +133,10 @@ echo $ghb->button(array(
 	'repo' => 'EnlighterJS',
 	'large' => true,
 	'type' => 'star',
-	'text' => 'Starring:'
+	'text' => 'Starring:',
+	'cache' => true,
+	'cacheLifetime' => 7200,
+	'errorText' => 'NA'
 ));</pre>
 			</div>
 			<div class="col-lg-6 col-md-12">
@@ -149,7 +152,10 @@ GitHubButtons::getInstance()->button(array(
 	'repo' => 'EnlighterJS',
 	'large' => true,
 	'type' => 'star',
-	'text' => 'Starring:'
+	'text' => 'Starring:',
+	'cache' => true,
+	'cacheLifetime' => 7200,
+	'errorText' => 'NA'
 ));</pre>
 			</div>			
 		</div>

@@ -6,8 +6,8 @@ name: GitHub-Buttons for MooTools, jQuery and PHP
 description: Unofficial GitHub Buttons based on https://github.com/mdo/github-buttons
 
 license: Apache 2.0 License
-version: 2.3
-build: 17cd815dcbc98ed06f9d474f578286b4/September 3 2014
+version: 2.4.0
+build: cb8aa1b6a4c254d81d3bb523fb0e3d3c/February 2 2015
 
 authors:
   - Andi Dittrich (author of MooTools/jQuery/PHP based versions)
@@ -26,6 +26,8 @@ provides: [GitHubButton]
 ...
 */
 ;
-jQuery(function(a){a.fn.GitHubButton=(function(c){var l=a.extend({large:false,owner:null,repo:null,type:"star",text:null,count:true},c);var b="https://api.github.com";var e="https://github.com/"+l.owner+"/"+l.repo+"/";var d="https://github.com/"+l.owner+"/";var j="-";switch(l.type){case"star":b+="/repos/"+l.owner+"/"+l.repo+"/stargazers";j="Star";d=e+"stargazers";break;case"fork":b+="/repos/"+l.owner+"/"+l.repo+"/forks";
-j="Fork";d=e+"network";break;case"watch":b+="/repos/"+l.owner+"/"+l.repo+"/subscribers";d+=l.repo+"/watchers";j="Watchers";break;case"follow":b+="/users/"+l.owner+"/followers";j="Follow @"+l.owner;e=d;d+="followers";break}var k=a("<div></div>",{"class":"github-btn "+(l.large?"github-btn-large":"")});var i=a("<a></a>",{"class":"gh-count",href:d,target:"_blank"});var h=a("<span></span>",{"class":"gh-ico"});
-var f=a("<span></span>",{"class":"gh-text",text:(l.text?l.text:j)});var g=a("<a></a>",{"class":"gh-btn",href:e,target:"_blank"});g.append(h).append(f);k.append(g).append(i);if(typeof l.count=="boolean"){if(l.count){a.getJSON(b+"?callback=?",{format:"json"}).done(function(m){if(m.data.length){i.text(m.data.length)}})}else{i.hide()}}else{i.text(l.count)}return this.append(k)})});
+jQuery(function(c){var b=(function(e,f){var g=JSON.stringify({time:(new Date().getTime()),payload:f});if(typeof(Storage)!=="undefined"){localStorage.setItem(e,g)}});var a=(function(e,f){if(typeof(Storage)!=="undefined"){var d=localStorage.getItem(e);if(!d){return null}d=c.parseJSON(d);if(!d.time||(d.time+(f*1000))<(new Date().getTime())){return null}return(d.payload?d.payload:null)}else{return null
+}});c.fn.GitHubButton=(function(e){var p=c.extend({large:false,owner:null,repo:null,type:"star",text:null,count:true,cache:true,cacheLifetime:7200,errorText:"NA"},e);var d="https://api.github.com";var g="https://github.com/"+p.owner+"/"+p.repo+"/";var f="https://github.com/"+p.owner+"/";var n="-";switch(p.type){case"star":d+="/repos/"+p.owner+"/"+p.repo+"/stargazers";n="Star";f=g+"stargazers";break;
+case"fork":d+="/repos/"+p.owner+"/"+p.repo+"/forks";n="Fork";f=g+"network";break;case"watch":d+="/repos/"+p.owner+"/"+p.repo+"/subscribers";f+=p.repo+"/watchers";n="Watchers";break;case"follow":d+="/users/"+p.owner+"/followers";n="Follow @"+p.owner;g=f;f+="followers";break}var o=c("<div></div>",{"class":"github-btn "+(p.large?"github-btn-large":"")});var k=c("<a></a>",{"class":"gh-count",href:f,target:"_blank"});
+var j=c("<span></span>",{"class":"gh-ico"});var h=c("<span></span>",{"class":"gh-text",text:(p.text?p.text:n)});var i=c("<a></a>",{"class":"gh-btn",href:g,target:"_blank"});i.append(j).append(h);o.append(i).append(k);if(typeof p.count=="boolean"){if(p.count){var l="GHB_"+p.type+"_"+p.owner+"_"+p.repo;if(p.cache===true){var m=a(l,p.cacheLifetime);if(m){k.text(m);return this.append(o)}}c.getJSON(d+"?callback=?",{format:"json"}).done(function(q){if(q.data.length){k.text(q.data.length);
+if(p.cache===true){b(l,q.data.length)}}else{k.text(p.errorText)}})}else{k.hide()}}else{k.text(p.count)}return this.append(o)})});

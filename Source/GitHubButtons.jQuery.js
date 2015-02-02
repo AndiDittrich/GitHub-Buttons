@@ -16,6 +16,47 @@ provides: [GitHubButton]
 */
 jQuery(function(jq){
 	
+	// use local storage as cache
+	var storeItem = (function(name, data){
+		// generate storage data
+		var d = JSON.stringify({
+			time: (new Date().getTime()),
+			payload: data
+		});
+		
+		// try to use html5 features
+		if (typeof(Storage) !== "undefined"){
+			localStorage.setItem(name, d);
+		}
+	});
+	
+	// use local storage as cache
+	var retrieveItem = (function(name, cacheLifetime){
+		// try to use html5 features
+		if (typeof(Storage) !== "undefined"){
+			// get item
+			var ls = localStorage.getItem(name);
+			
+			// available ?
+			if (!ls){
+				return null;
+			}
+			
+			// decode json serialized data
+			ls = jq.parseJSON(ls);
+			
+			// lifetime expired ?
+			if (!ls.time || (ls.time + (cacheLifetime*1000)) < (new Date().getTime())){
+				return null;
+			}
+			
+			// valid payload ?
+			return (ls.payload ? ls.payload : null);
+		}else{
+			return null;
+		}
+	});
+	
 	// Element extension syntax familar with the MooTools one
 	jq.fn.GitHubButton = (function(opt){
 		var options = jq.extend({
@@ -35,7 +76,16 @@ jQuery(function(jq){
 			text: null,
 			
 			// enabled/disable counter - manual set the value
-			count: true
+			count: true,
+			
+			// enable/disable caching
+			cache: true,
+			
+			// cache lifetime in seconds (2h default)
+			cacheLifetime: 7200,
+			
+			// error text/count
+			errorText: 'NA'
 		}, opt);
 		
 		// jsonp rest service url
@@ -115,7 +165,21 @@ jQuery(function(jq){
 		// which "count"-mode should be used ?
 		if (typeof options.count == 'boolean'){
 			// show count and request the data via JSONP ?
-			if (options.count){
+			if (options.count){				
+				// cache instance name
+				var cacheName = 'GHB_' + options.type + '_' + options.owner + '_' + options.repo;
+				
+				// cache version available ?
+				if (options.cache === true){
+					var cdata = retrieveItem(cacheName, options.cacheLifetime);
+					
+					if (cdata){
+						// update text
+						count.text(cdata);
+						return this.append(buttonContainer);
+					}
+				}				
+				
 				// request data
 				jq.getJSON(url + '?callback=?', {
 					format: "json"
@@ -123,6 +187,15 @@ jQuery(function(jq){
 					// valid reponse ? request limit not exceeeded ?
 			    	if (response.data.length){
 			    		count.text(response.data.length);
+			    		
+			    		// update cache
+						if (options.cache === true){
+							storeItem(cacheName, response.data.length);
+						}
+						
+					// set error text		
+			    	}else{
+			    		count.text(options.errorText);
 			    	}
 				});
 			}else{

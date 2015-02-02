@@ -1,3 +1,9 @@
+### 2.4.0 ###
+* Added: client-side caching using [LocalStorage](http://www.w3schools.com/html/html5_webstorage.asp) - feature requested on [GitHub](https://github.com/AndiDittrich/GitHub-Buttons/issues/1)
+* Added: error-text in case the GitHub API is not available/accessable
+* Changed: php caching now stores the numbers(counts) directly instead of the json response
+* Changed: the cache-directory of the `GitHub-Buttons-PHP.phtml` file to `.cache/`
+
 ### 2.3 ###
 * Added PHP based version including server-side caching of GitHub API Requests
 * Added PHP based example
