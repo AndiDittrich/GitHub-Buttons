@@ -12,7 +12,7 @@
 <link rel="stylesheet" type="text/css" href="Resources/Template.css" />
 
 <!-- Include GitHub-Buttons Styles -->
-<link rel="stylesheet" type="text/css" href="Build/GitHubButtons.yui.css" />
+<link rel="stylesheet" type="text/css" href="Dist/GitHubButtons.yui.css" />
 
 </head>
 <body>
@@ -32,7 +32,7 @@
 		<hr />
 		<?php 
 			// include GitHubButtons
-			require('Build/GitHubButtons.php');
+			require('Dist/GitHubButtons.php');
 		
 			// create new instance of GitHubButtons using current directory as cache
 			$ghb = new GitHubButtons(__DIR__.'/.cache');		
@@ -161,10 +161,10 @@ GitHubButtons::getInstance()->button(array(
 		</div>
 	
 		<hr />
-		
-		<p>Sources: <a href="https://github.com/AndiDittrich/GitHub-Buttons/blob/master/Build/GitHubButtons.MooTools.js">Native MooTools Code</a> - <a href="https://github.com/AndiDittrich/GitHub-Buttons/blob/master/Build/GitHubButtons.jQuery.js">Native jQuery Code</a> - <a href="https://github.com/AndiDittrich/GitHub-Buttons/blob/master/Build/GitHubButtons.php">Native PHP Code</a> - <a href="https://github.com/AndiDittrich/GitHub-Buttons/blob/master/Build/GitHubButtons.css">Stylesheet</a></p>
-		<p>All required files are located into the <code>Build/</code> directory including YUI compressed versions!</p>
-		<hr />
+
+        <p>Sources: <a href="https://github.com/AndiDittrich/GitHub-Buttons/blob/master/Source/GitHubButtons.MooTools.js">Native MooTools Code</a> - <a href="https://github.com/AndiDittrich/GitHub-Buttons/blob/master/Source/GitHubButtons.jQuery.js">Native jQuery Code</a> - <a href="https://github.com/AndiDittrich/GitHub-Buttons/blob/master/Source/GitHubButtons.php">Native PHP Code</a> - <a href="https://github.com/AndiDittrich/GitHub-Buttons/blob/master/Source/GitHubButtons.css">Stylesheet</a></p>
+        <p>All required files are located into the <code>Dist/</code> directory including compressed versions!</p>
+        <hr />
 		<div class="download-buttons">
 			<a href="https://github.com/AndiDittrich/GitHub-Buttons" class="btn btn-primary btn-lg">Download on GitHub</a> 
 		</div>

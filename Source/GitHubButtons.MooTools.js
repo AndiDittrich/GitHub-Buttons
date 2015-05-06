@@ -63,32 +63,39 @@ var GitHubButton = new Class({
 		
 		// text to display
 		var text = '-';
+
+        // response object selector
+        var responseSelector = '';
 		
 		// star, fork, follow, watch are supported
 		switch (this.options.type){
 			case 'star':
-				url += '/repos/' + this.options.owner + '/' + this.options.repo + '/stargazers';
+				url += '/repos/' + this.options.owner + '/' + this.options.repo;
 				text = 'Star';
 				actionUrl = repoUrl + 'stargazers';
+                responseSelector = 'stargazers_count';
 				break;
 				
 			case 'fork':
-				url += '/repos/' + this.options.owner + '/' + this.options.repo + '/forks';
+				url += '/repos/' + this.options.owner + '/' + this.options.repo;
 				text = 'Fork';
 				actionUrl = repoUrl + 'network';
+                responseSelector = 'forks_count';
 				break;
 				
 			case 'watch':
-				url += '/repos/' + this.options.owner + '/' + this.options.repo + '/subscribers';
+				url += '/repos/' + this.options.owner + '/' + this.options.repo;
 				actionUrl += this.options.repo + '/watchers';
 				text = 'Watchers';
+                responseSelector = 'subscribers_count';
 				break;
 				
 			case 'follow':
-				url += '/users/' + this.options.owner + '/followers';
+				url += '/users/' + this.options.owner;
 				text = 'Follow @' + this.options.owner;
 				repoUrl = actionUrl;
 				actionUrl += 'followers';
+                responseSelector = 'followers';
 				break;
 		}
 		
@@ -133,7 +140,7 @@ var GitHubButton = new Class({
 			// show count and request the data via JSONP ?
 			if (this.options.count){
 				// cache instance name
-				var cacheName = 'GHB_' + this.options.type + '_' + this.options.owner + '_' + this.options.repo;
+				var cacheName = 'GHB_' + this.options.type + '_' + this.options.owner + '_' + this.options.repo + '_' + responseSelector;
 				
 				// cache version available ?
 				if (this.options.cache === true){
@@ -158,13 +165,16 @@ var GitHubButton = new Class({
 				    // request complete handler
 				    onComplete: function(response){
 				    	// valid reponse ? request limit not exceeeded ?
-				    	if (response.data.length){
+				    	if (response.data && response.data[responseSelector]){
+                            // extract count
+                            var cnt = response.data[responseSelector];
+
 				    		// update text
-							count.set('text', response.data.length.format({group: '.'}));
+							count.set('text', cnt.format({group: '.'}));
 							
 							// update cache
 							if (this.options.cache === true){
-								this.storeItem(cacheName, response.data.length);
+								this.storeItem(cacheName, cnt);
 							}
 							
 						// set error text	
@@ -228,7 +238,7 @@ var GitHubButton = new Class({
 		}else{
 			return null;
 		}
-	},
+	}
 });
 
 // Native Element extension - jQuery like usage

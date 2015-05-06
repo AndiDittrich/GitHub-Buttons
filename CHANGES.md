@@ -1,3 +1,9 @@
+### 2.5.0 ##
+* API Endpoints are changed to `repos/:owner/:repo` and `users/:owner` to avoid counter limitations
+* Changed HTTP User-Agent string (PHP version) to `GitHubButtons/1.1`
+* Renamed directory `Build/` to `Dist/`
+* Bugfix: Counters limited to "30" because of a wrong API Endpoint
+
 ### 2.4.0 ###
 * Added: client-side caching using [LocalStorage](http://www.w3schools.com/html/html5_webstorage.asp) - feature requested on [GitHub](https://github.com/AndiDittrich/GitHub-Buttons/issues/1)
 * Added: error-text in case the GitHub API is not available/accessable

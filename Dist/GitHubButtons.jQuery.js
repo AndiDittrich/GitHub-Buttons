@@ -4,8 +4,8 @@ name: GitHub-Buttons for MooTools, jQuery and PHP
 description: Unofficial GitHub Buttons based on https://github.com/mdo/github-buttons
 
 license: Apache 2.0 License
-version: 2.4.0
-build: cb8aa1b6a4c254d81d3bb523fb0e3d3c/February 2 2015
+version: 2.5.0
+build: f45236994ab6e40edbe05b20127fa7de/May 6 2015
 
 authors:
   - Andi Dittrich (author of MooTools/jQuery/PHP based versions)
@@ -121,32 +121,39 @@ jQuery(function(jq){
 		
 		// text to display
 		var text = '-';
+
+        // response object selector
+        var responseSelector = '';
 		
 		// star, fork, follow, watch are supported
 		switch (options.type){
 			case 'star':
-				url += '/repos/' + options.owner + '/' + options.repo + '/stargazers';
+				url += '/repos/' + options.owner + '/' + options.repo;
 				text = 'Star';
 				actionUrl = repoUrl + 'stargazers';
+                responseSelector = 'stargazers_count';
 				break;
 				
 			case 'fork':
-				url += '/repos/' + options.owner + '/' + options.repo + '/forks';
+				url += '/repos/' + options.owner + '/' + options.repo;
 				text = 'Fork';
 				actionUrl = repoUrl + 'network';
+                responseSelector = 'forks_count';
 				break;
 				
 			case 'watch':
-				url += '/repos/' + options.owner + '/' + options.repo + '/subscribers';
+				url += '/repos/' + options.owner + '/' + options.repo;
 				actionUrl += options.repo + '/watchers';
 				text = 'Watchers';
+                responseSelector = 'subscribers_count';
 				break;
 				
 			case 'follow':
-				url += '/users/' + options.owner + '/followers';
+				url += '/users/' + options.owner;
 				text = 'Follow @' + options.owner;
 				repoUrl = actionUrl;
 				actionUrl += 'followers';
+                responseSelector = 'followers';
 				break;
 		}
 		
@@ -191,7 +198,7 @@ jQuery(function(jq){
 			// show count and request the data via JSONP ?
 			if (options.count){				
 				// cache instance name
-				var cacheName = 'GHB_' + options.type + '_' + options.owner + '_' + options.repo;
+				var cacheName = 'GHB_' + options.type + '_' + options.owner + '_' + options.repo + '_' + responseSelector;
 				
 				// cache version available ?
 				if (options.cache === true){
@@ -208,13 +215,15 @@ jQuery(function(jq){
 				jq.getJSON(url + '?callback=?', {
 					format: "json"
 				}).done(function(response){
-					// valid reponse ? request limit not exceeeded ?
-			    	if (response.data.length){
-			    		count.text(response.data.length);
+                    if (response.data && response.data[responseSelector]){
+                        // extract count
+                        var cnt = response.data[responseSelector];
+
+			    		count.text(cnt);
 			    		
 			    		// update cache
 						if (options.cache === true){
-							storeItem(cacheName, response.data.length);
+							storeItem(cacheName, cnt);
 						}
 						
 					// set error text		

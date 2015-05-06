@@ -69,34 +69,39 @@ class GitHubButtons{
 		$buttonLink = 'https://github.com/' . $options['owner'] . '/';
 		$counterLink = 'https://github.com/' . $options['owner'] . '/';
 		$apiUrl = '';
+        $responseSelector = '';
 		
 		// star, fork, follow, watch are supported
 		switch ($options['type']){
 			case 'star':
-				$apiUrl = 'repos/' . $options['owner'] . '/' . $options['repo'] . '/stargazers';
+                $apiUrl = 'repos/' . $options['owner'] . '/' . $options['repo'];
 				$text = 'Star';
 				$buttonLink .= $options['repo'];
 				$counterLink .= $options['repo'] . '/stargazers';
+                $responseSelector = 'stargazers_count';
 				break;
 		
 			case 'fork':
-				$apiUrl = 'repos/' . $options['owner'] . '/' . $options['repo'] . '/forks';
+                $apiUrl = 'repos/' . $options['owner'] . '/' . $options['repo'];
 				$text = 'Fork';
 				$buttonLink .= $options['repo'];
 				$counterLink .= $options['repo'] . '/network';
+                $responseSelector = 'forks_count';
 				break;
 		
 			case 'watch':
-				$apiUrl = 'repos/' . $options['owner'] . '/' . $options['repo'] . '/subscribers';
+                $apiUrl = 'repos/' . $options['owner'] . '/' . $options['repo'];
 				$text = 'Watchers';
 				$buttonLink .= $options['repo'];
 				$counterLink .= $options['repo'] . '/watchers';
+                $responseSelector = 'subscribers_count';
 				break;
 		
 			case 'follow':
 				$counterLink .= 'followers';
 				$text = 'Follow @' . $options['owner'];
-				$apiUrl = 'users/'.$options['owner'].'/'.'followers';
+				$apiUrl = 'users/'.$options['owner'];
+                $responseSelector = 'followers';
 				break;
 		}
 		
@@ -110,11 +115,11 @@ class GitHubButtons{
 			$count = $options['count'];
 		}else{
 			// fetch count
-			$dataset = $this->doApiRequest($apiUrl, $options['cache'], $options['cacheLifetime']);
+			$response = $this->doApiRequest($apiUrl, $options['cache'], $options['cacheLifetime'], $responseSelector);
 			
 			// valid ?
-			if (is_numeric($dataset)){
-				$count = $dataset;
+			if (is_numeric($response)){
+				$count = $response;
 			}else{
 				$count = $options['errorText'];
 			}
@@ -138,9 +143,9 @@ class GitHubButtons{
 	 * @param unknown $url
 	 * @return string
 	 */
-	private function doApiRequest($url, $cacheEnabled, $cacheLifetime){
+	private function doApiRequest($url, $cacheEnabled, $cacheLifetime, $selector){
 		// cache url
-		$cachefilename = $this->_cacheDir . '/github.'.sha1($url).'.cache.json';
+		$cachefilename = $this->_cacheDir . '/github.'.sha1($url.$selector).'.cache.json';
 		
 		// 1h cachetime
 		if ($cacheEnabled && file_exists($cachefilename) && filemtime($cachefilename) > (time()-$cacheLifetime)){
@@ -151,7 +156,7 @@ class GitHubButtons{
 				array(
 						'method'  => 'GET',
 						'protocol_version' => '1.1',
-						'user_agent' => 'GitHubButtonsFetcher/1.0',
+						'user_agent' => 'GitHubButtons/1.1',
 						'header'  => array(
 								'Content-type: application/x-www-form-urlencoded;charset=UTF-8',
 								'Connection: close',
@@ -165,21 +170,24 @@ class GitHubButtons{
 		try{
 			$data = @file_get_contents('https://api.github.com/'.$url, false, stream_context_create($opts));
 		}catch(Exception $error){}
-		
+
 		// success ?
 		if ($data===false){
 			return false;
 		}else{
 			// decode data
-			$jdata = json_decode($data);
-			
+			$jdata = json_decode($data, true);
+
+            // extract
+            $cnt = $jdata[$selector];
+
 			if ($cacheEnabled){
 				// cache data
-				file_put_contents($cachefilename, count($jdata));
+				file_put_contents($cachefilename, $cnt);
 			}
 			
 			// return resposne data
-			return count($jdata);
+			return $cnt;
 		}
 	}
 	

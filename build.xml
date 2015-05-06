@@ -4,7 +4,7 @@
 	Simple ANT-based buildscript for GitHub-Buttons
 	
 	@author		Andi Dittrich <http://andidittrich.de/>
-	@version	1.3
+	@version	1.4
 	@license	MIT Style X11
 	
 !-->
@@ -12,9 +12,9 @@
 		
 	<!-- Target Properties ! -->
 	<property name="yui.jar" value="Util/yuicompressor-2.4.8.jar" />
-	<property name="build.dir" value="Build/" />
+	<property name="build.dir" value="Dist/" />
 	<property name="www.dir" value="PublicHtml/" />
-	<property name="build.var.version" value="2.4.0" />
+	<property name="build.var.version" value="2.5.0" />
 
 	<!-- ANT.contrib package -->
 	<path id="ant.contrib.classpath" location="Util/ant-contrib-1.0b3.jar"></path>
@@ -96,8 +96,8 @@
 		<fixcrlf eol="crlf" file="${www.dir}LICENSE.txt" />
 
 		<!-- Copy JS/CSS Files !-->
-		<copy todir="${www.dir}Build">
-			<fileset dir="Build/"/>
+		<copy todir="${www.dir}Dist">
+			<fileset dir="Dist/"/>
 		</copy>
 	</target>
 	
